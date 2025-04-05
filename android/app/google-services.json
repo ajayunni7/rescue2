@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "713460781885",
+    "project_id": "exploric-af8ee",
+    "storage_bucket": "exploric-af8ee.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713460781885:android:eba54d5cf9287928acab54",
+        "android_client_info": {
+          "package_name": "com.example.resq"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMDWWgqcRkzSKxkEgWIK7Cyl_PKxD4jEw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
