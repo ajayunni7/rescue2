@@ -30,3 +30,18 @@ class AdminHomeController extends GetxController {
     }
   }
 }
+
+Future<void> sendContactInfo(
+    String contactName, String phone, String userId) async {
+  try {
+    await Supabase.instance.client.from('user_details').update({
+      'admin_contact_name': contactName,
+      'admin_contact_phone': phone,
+    }).eq('user_id', userId);
+
+    Get.snackbar('Success', 'Contact info saved');
+  } catch (e) {
+    print('Error saving contact info: $e');
+    Get.snackbar('Error', 'Failed to save contact info');
+  }
+}

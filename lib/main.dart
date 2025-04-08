@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:resq/firebase_options.dart';
 import 'package:resq/pages/others/admin_home.dart';
 import 'package:resq/pages/others/admin_login.dart';
+import 'package:resq/pages/others/alert_page.dart';
 import 'package:resq/pages/others/bottomnav.dart';
 import 'package:resq/pages/others/splash.dart';
 import 'package:resq/pages/others/user_info.dart';
@@ -13,6 +14,7 @@ import 'package:resq/pages/others/user_signup.dart';
 import 'package:resq/pages/tabs/emergency.dart';
 import 'package:resq/pages/tabs/first_aid.dart';
 import 'package:resq/pages/tabs/home.dart';
+import 'package:resq/services/controllers/admin_controller.dart';
 import 'package:resq/services/controllers/adminauth_controller.dart';
 import 'package:resq/services/controllers/adminhome_controller.dart';
 import 'package:resq/services/controllers/auth_controller.dart';
@@ -51,6 +53,7 @@ void main() async {
   Get.put(AdminAuthController());
   Get.put(AdminHomeController());
   Get.put(FirstAidController());
+  Get.put(AdminController());
   runApp(const MyApp());
 }
 
@@ -122,6 +125,10 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/adminHome',
           page: () => AdminHomePage(),
+        ),
+        GetPage(
+          name: '/alert',
+          page: () => AdminAlertPage(),
         ),
       ],
     );

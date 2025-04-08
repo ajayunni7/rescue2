@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -7,7 +8,9 @@ class UserDetailsController extends GetxController {
   var name = ''.obs;
   var location = ''.obs;
   var note = ''.obs;
-  var status = 'Safe'.obs; // Default status is "Safe"
+  var status = 'Safe'.obs;
+  var adminContactName = ''.obs;
+  var adminContactPhone = ''.obs; // Default status is "Safe"
 
   // Function to change status when button is clicked
   void changeStatus() {
@@ -49,6 +52,53 @@ class UserDetailsController extends GetxController {
     } catch (e) {
       print('Exception occurred: $e'); // ✅ Print actual error message
       Get.snackbar('Error', 'Failed to save data: $e');
+    }
+  }
+
+  Future<void> fetchUserDetails() async {
+    final user = supabase.auth.currentUser;
+    if (user == null) return;
+
+    final data = await supabase
+        .from('user_details')
+        .select()
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+    if (data != null) {
+      name.value = data['name'] ?? '';
+      location.value = data['location'] ?? '';
+      note.value = data['note'] ?? '';
+      status.value = data['status'] ?? 'Safe';
+
+      adminContactName.value = data['admin_contact_name'] ?? '';
+      adminContactPhone.value = data['admin_contact_phone'] ?? '';
+
+      // 👉 Show dialog only if both values exist
+      if (adminContactName.value.isNotEmpty &&
+          adminContactPhone.value.isNotEmpty) {
+        Future.delayed(Duration.zero, () {
+          Get.dialog(
+            AlertDialog(
+              title: Text("Volunteer Contact Details"),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("Name: ${adminContactName.value}"),
+                  SizedBox(height: 8),
+                  Text("Phone: ${adminContactPhone.value}"),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Get.back(),
+                  child: Text("OK"),
+                ),
+              ],
+            ),
+          );
+        });
+      }
     }
   }
 }
